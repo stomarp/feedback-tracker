@@ -1,15 +1,33 @@
 # Feedback Tracker — Job Applications & Interview Insights
 
-A personal web application to track job applications, rejections, and interview feedback in order to identify patterns, skill gaps, and improve outcomes.
+A personal web app I’m building to track job applications, rejections, and interview feedback so I can spot patterns (recurring rejection reasons, missing skills, and where I drop in the funnel).
 
-## What this app does
-- Track job applications and their status
-- Store rejection reasons and notes
-- Capture interview and resume feedback
-- Show basic analytics (rejection reasons, skills, funnel)
+## Why I built this
+I used to track applications in notes/Excel, but it was hard to connect feedback and outcomes. This project helps me keep everything in one place and later analyze trends.
 
-## Project Structure
-- `projects/feedback-tracker/backend` — FastAPI backend (API + database)
-- `projects/feedback-tracker/frontend` — Frontend UI (later)
-- `projects/feedback-tracker/docs` — Design docs (ERD, API specs, screenshots)
+## Tech Stack
+- Backend: FastAPI (Python)
+- Database: PostgreSQL (Docker)
+- ORM: SQLAlchemy
+- Frontend: planned (React/Next.js)
 
+## Current Features (Backend)
+- Health check endpoint: `GET /health`
+- Database connectivity check: `GET /db-check`
+- Database tables created for:
+  - applications
+  - rejections
+  - feedback
+
+## Repo Structure
+- `projects/feedback-tracker/backend` — FastAPI backend
+- `projects/feedback-tracker/frontend` — frontend (later)
+- `projects/feedback-tracker/docs` — design notes
+
+## How to run locally
+
+### 1) Start PostgreSQL (Docker)
+From repo root:
+```bash
+docker compose up -d
+docker ps
