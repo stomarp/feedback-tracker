@@ -15,10 +15,18 @@ from sqlalchemy.orm import Session
 from app.core.settings import settings
 from app.db.session import get_db
 
+from app.api.routes.applications import router as applications_router
+import app.models  # ensures all SQLAlchemy models are registered
+
+
+
 app = FastAPI(
     title=settings.app_name,
     version=settings.version,
 )
+
+app.include_router(applications_router)
+
 
 # CORS allows the frontend (browser UI) to call our backend APIs.
 # For MVP we allow all origins. Later we will restrict this.
