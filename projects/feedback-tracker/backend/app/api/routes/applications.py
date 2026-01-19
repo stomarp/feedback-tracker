@@ -3,8 +3,9 @@ from sqlalchemy.orm import Session
 
 from app.db.session import get_db
 from app.models.application import Application
-from app.schemas.application import ApplicationCreate, ApplicationOut
 from fastapi import HTTPException
+
+from app.schemas.application import ApplicationCreate, ApplicationOut, ApplicationUpdate
 
 
 router = APIRouter(prefix="/applications", tags=["applications"])
@@ -54,4 +55,23 @@ def delete_application(app_id: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"deleted": True, "id": app_id}
+
+@router.put("/{app_id}", response_model=ApplicationOut)
+def update_application(app_id: int, payload: ApplicationUpdate, db: Session = Depends(get_db)):
+    app_row = db.query(Application).filter(Application.id == app_id).first()
+
+    if not app_row:
+        raise HTTPException(status_code=404, detail="Application not found")
+
+    # Only update fields that were provided
+    data = payload.model_dump(exclude_unset=True)
+
+    for key, value in data.items():
+        setattr(app_row, key, value)
+
+    db.commit()
+    db.refresh(app_row)
+
+    return app_row
+
 
