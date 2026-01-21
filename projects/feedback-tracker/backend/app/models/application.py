@@ -59,9 +59,10 @@ class Application(Base):
         cascade="all, delete-orphan",
     )
 
-    # Relationship: one application → many feedback entries
-    feedback_entries = relationship(
+    # Relationship: one application → many feedback code app/models/feedback.py
+
+    feedback = relationship(
         "Feedback",
-        back_populates="application",
-        cascade="all, delete-orphan",
-    )
+         back_populates="application",
+         cascade="all, delete-orphan",
+)

@@ -1,55 +1,36 @@
-from datetime import datetime
-from sqlalchemy import DateTime, ForeignKey, String, Text
+from datetime import date, datetime
+
+from sqlalchemy import Date, DateTime, ForeignKey, Integer, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from app.models.base import Base
 
 
 class Feedback(Base):
     """
-    Represents feedback related to a job application.
-    Example: interview feedback, resume feedback, OA feedback.
+    Feedback attached to one job application.
+    Example: interview feedback notes, recruiter feedback, etc.
     """
 
     __tablename__ = "feedback"
 
-    # Primary key
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 
-    # Foreign key linking to applications table
     application_id: Mapped[int] = mapped_column(
+        Integer,
         ForeignKey("applications.id", ondelete="CASCADE"),
         nullable=False,
     )
 
-    # Type of feedback
-    # Example: Resume | Interview | OA | Recruiter
-    category: Mapped[str] = mapped_column(
-        String(50),
-        nullable=False
-    )
+    feedback_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    interviewer: Mapped[str | None] = mapped_column(Text, nullable=True)
+    rating: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    comments: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    # Actual feedback text
-    feedback_text: Mapped[str] = mapped_column(
-        Text,
-        nullable=False
-    )
-
-    # Skills mentioned in feedback (comma-separated for MVP)
-    # Example: "Python, SQL, System Design"
-    skills: Mapped[str | None] = mapped_column(
-        Text,
-        nullable=True
-    )
-
-    # Timestamp when feedback was created
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
-        default=datetime.utcnow
+        default=datetime.utcnow,
+        nullable=False,
     )
 
-    # Relationship back to application
-    application = relationship(
-        "Application",
-        back_populates="feedback_entries"
-    )
-
+    application = relationship("Application", back_populates="feedback")

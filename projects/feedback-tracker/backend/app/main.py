@@ -18,6 +18,9 @@ from app.db.session import get_db
 from app.api.routes.applications import router as applications_router
 from app.api.routes.rejections import router as rejections_router
 
+from app.api.routes.feedback import router as feedback_router
+
+
 import app.models  # ensures all SQLAlchemy models are registered
 
 
@@ -30,6 +33,9 @@ app = FastAPI(
 app.include_router(applications_router)
 
 app.include_router(rejections_router)
+
+app.include_router(feedback_router)
+
 
 
 
