@@ -85,6 +85,8 @@ feedback-tracker/
 └── README.md
     └── Project documentation
 
+```
+
 
 ---
 
@@ -131,6 +133,7 @@ Pydantic Schema
 SQLAlchemy ORM
   ↓
 PostgreSQL Database
+```
 
 ---
 
