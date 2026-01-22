@@ -196,12 +196,14 @@ Interactive Swagger UI is available at:
 ```bash
 git clone https://github.com/stomarp/feedback-tracker.git
 cd feedback-tracker
+```
 
 ---
 
 ###  Start PostgreSQL with Docker
 ```bash
 docker compose up -d
+```
 
 ---
 
@@ -211,19 +213,19 @@ cd projects/feedback-tracker/backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-
+```
 ---
 
 ###  Initialize Database Tables
 ```bash
 python3 -m app.db.init_db
-
+```
 ---
 
 ###  Run the API Server
 ```bash
 python3 -m uvicorn app.main:app --reload
-
+```
 ---
 
 ##  Current Status
